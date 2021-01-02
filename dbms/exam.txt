@@ -1,0 +1,313 @@
+mysql> show tabels;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tabels' at line 1
+mysql> show tabeles;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tabeles' at line 1
+mysql> show tables;
++------------------------+
+| Tables_in_S20190010163 |
++------------------------+
+| account                |
+| borrower               |
+| branch                 |
+| customer               |
+| depositor              |
+| loan                   |
++------------------------+
+6 rows in set (0.00 sec)
+
+mysql> show tables;
++------------------------+
+| Tables_in_S20190010163 |
++------------------------+
+| account                |
+| borrower               |
+| branch                 |
+| customer               |
+| depositor              |
+| loan                   |
++------------------------+
+6 rows in set (0.00 sec)
+
+mysql> show tables;
++------------------------+
+| Tables_in_S20190010163 |
++------------------------+
+| account                |
+| borrower               |
+| branch                 |
+| customer               |
+| depositor              |
+| loan                   |
++------------------------+
+6 rows in set (0.00 sec)
+
+mysql> show tables;
++------------------------+
+| Tables_in_S20190010163 |
++------------------------+
+| account                |
+| borrower               |
+| branch                 |
+| customer               |
+| depositor              |
+| loan                   |
++------------------------+
+6 rows in set (0.00 sec)
+
+mysql> show tables;
++------------------------+
+| Tables_in_S20190010163 |
++------------------------+
+| account                |
+| borrower               |
+| branch                 |
+| customer               |
+| depositor              |
+| loan                   |
++------------------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from customer;
++---------------+-----------------+---------------+
+| customer_name | customer_street | customer_city |
++---------------+-----------------+---------------+
+| Adams         | Spring          | Pittsfield    |
+| Brooks        | Senator         | Brooklyn      |
+| Curry         | North           | Rye           |
+| Glenn         | Sand Hill       | Woodside      |
+| Green         | Walnut          | Stamford      |
+| Hayes         | Main            | Harrison      |
+| Johnson       | Alma            | Palo Alto     |
+| Jones         | Main            | Harrison      |
+| Lindsay       | Park            | Pittsfield    |
+| Smith         | North           | Rye           |
+| Turner        | Putnam          | Stamford      |
+| Williams      | Nassau          | Princeton     |
++---------------+-----------------+---------------+
+12 rows in set (0.00 sec)
+
+mysql> select * from borrower;
++---------------+-------------+
+| customer_name | loan_number |
++---------------+-------------+
+| Smith         | L-11        |
+| Hayes         | L-15        |
+| Adams         | L-16        |
+| Jones         | L-17        |
+| Williams      | L-17        |
+| Smith         | L-23        |
+| Curry         | L-93        |
++---------------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from account;
++----------------+-------------+---------+
+| account_number | branch_name | balance |
++----------------+-------------+---------+
+| A-101          | Downtown    |  500.00 |
+| A-102          | Perryridge  |  400.00 |
+| A-201          | Brighton    |  900.00 |
+| A-215          | Mianus      |  700.00 |
+| A-217          | Brighton    |  750.00 |
+| A-222          | Redwood     |  700.00 |
+| A-305          | Round Hill  |  350.00 |
++----------------+-------------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select * from depositor;
++---------------+----------------+
+| customer_name | account_number |
++---------------+----------------+
+| Johnson       | A-101          |
+| Hayes         | A-102          |
+| Johnson       | A-201          |
+| Smith         | A-215          |
+| Jones         | A-217          |
+| Lindsay       | A-222          |
+| Turner        | A-305          |
++---------------+----------------+
+7 rows in set (0.01 sec)
+
+mysql> select * from loan;
++-------------+-------------+--------+
+| loan_number | branch_name | amount |
++-------------+-------------+--------+
+| L-11        | Round Hill  |    900 |
+| L-15        | Perryridge  |   1500 |
+| L-16        | Perryridge  |   1300 |
+| L-17        | Downtown    |   1000 |
+| L-23        | Redwood     |   2000 |
+| L-93        | Mianus      |    500 |
++-------------+-------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from branch;
++-------------+-------------+------------+
+| branch_name | branch_city | assets     |
++-------------+-------------+------------+
+| Brighton    | Brooklyn    | 7100000.00 |
+| Downtown    | Brooklyn    | 9000000.00 |
+| Mianus      | Horseneck   |  400000.00 |
+| North Town  | Rye         | 3700000.00 |
+| Perryridge  | Horseneck   | 1700000.00 |
+| Pownal      | Bennington  |  300000.00 |
+| Redwood     | Palo Alto   | 2100000.00 |
+| Round Hill  | Horseneck   | 8000000.00 |
++-------------+-------------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select customer_name,account_number,balance from account,depositor where account.account_number=depositor.account_number;
+ERROR 1052 (23000): Column 'account_number' in field list is ambiguous
+mysql> select customer_name,balance from account,depositor where account.account_number=depositor.account_number;
++---------------+---------+
+| customer_name | balance |
++---------------+---------+
+| Johnson       |  500.00 |
+| Hayes         |  400.00 |
+| Johnson       |  900.00 |
+| Smith         |  700.00 |
+| Jones         |  750.00 |
+| Lindsay       |  700.00 |
+| Turner        |  350.00 |
++---------------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select customer_name,balance,max(balance) as Net Balance from account,depositor where account.account_number=depositor.account_number;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Balance from account,depositor where account.account_number=depositor.account_nu' at line 1
+mysql> select customer_name,balance,max(balance) as Net Balance from account,depositor where account.account_number=depositor.account_number and where balance < (select max(balance) from account);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Balance from account,depositor where account.account_number=depositor.account_nu' at line 1
+mysql> delimiter //
+mysql> create procedure change_name()
+    -> begin
+    -> update customer set customer_name="S20190010163" where customer_name="Smith";
+    -> update depositor set customer_name="S20190010163" where customer_name="Smith";
+    -> update borrower set customer_name="S20190010163" where customer_name="Smith";
+    -> end//
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> 
+mysql> delimiter ;
+mysql> call change_name();
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`S20190010163`.`borrower`, CONSTRAINT `borrower_ibfk_1` FOREIGN KEY (`customer_name`) REFERENCES `customer` (`customer_name`))
+mysql> select * from customer;
++---------------+-----------------+---------------+
+| customer_name | customer_street | customer_city |
++---------------+-----------------+---------------+
+| Adams         | Spring          | Pittsfield    |
+| Brooks        | Senator         | Brooklyn      |
+| Curry         | North           | Rye           |
+| Glenn         | Sand Hill       | Woodside      |
+| Green         | Walnut          | Stamford      |
+| Hayes         | Main            | Harrison      |
+| Johnson       | Alma            | Palo Alto     |
+| Jones         | Main            | Harrison      |
+| Lindsay       | Park            | Pittsfield    |
+| Smith         | North           | Rye           |
+| Turner        | Putnam          | Stamford      |
+| Williams      | Nassau          | Princeton     |
++---------------+-----------------+---------------+
+12 rows in set (0.00 sec)
+
+mysql> select * from depositor;
++---------------+----------------+
+| customer_name | account_number |
++---------------+----------------+
+| Johnson       | A-101          |
+| Hayes         | A-102          |
+| Johnson       | A-201          |
+| Smith         | A-215          |
+| Jones         | A-217          |
+| Lindsay       | A-222          |
+| Turner        | A-305          |
++---------------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from borrower;
++---------------+-------------+
+| customer_name | loan_number |
++---------------+-------------+
+| Smith         | L-11        |
+| Hayes         | L-15        |
+| Adams         | L-16        |
+| Jones         | L-17        |
+| Williams      | L-17        |
+| Smith         | L-23        |
+| Curry         | L-93        |
++---------------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> SET FOREIGN_KEY_CHECKS = 0;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call change_name();
+Query OK, 2 rows affected (0.20 sec)
+
+mysql> select * from borrower;
++---------------+-------------+
+| customer_name | loan_number |
++---------------+-------------+
+| S20190010163  | L-11        |
+| Hayes         | L-15        |
+| Adams         | L-16        |
+| Jones         | L-17        |
+| Williams      | L-17        |
+| S20190010163  | L-23        |
+| Curry         | L-93        |
++---------------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from depositor;
++---------------+----------------+
+| customer_name | account_number |
++---------------+----------------+
+| Johnson       | A-101          |
+| Hayes         | A-102          |
+| Johnson       | A-201          |
+| S20190010163  | A-215          |
+| Jones         | A-217          |
+| Lindsay       | A-222          |
+| Turner        | A-305          |
++---------------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customer;
++---------------+-----------------+---------------+
+| customer_name | customer_street | customer_city |
++---------------+-----------------+---------------+
+| Adams         | Spring          | Pittsfield    |
+| Brooks        | Senator         | Brooklyn      |
+| Curry         | North           | Rye           |
+| Glenn         | Sand Hill       | Woodside      |
+| Green         | Walnut          | Stamford      |
+| Hayes         | Main            | Harrison      |
+| Johnson       | Alma            | Palo Alto     |
+| Jones         | Main            | Harrison      |
+| Lindsay       | Park            | Pittsfield    |
+| S20190010163  | North           | Rye           |
+| Turner        | Putnam          | Stamford      |
+| Williams      | Nassau          | Princeton     |
++---------------+-----------------+---------------+
+12 rows in set (0.00 sec)
+
+mysql> ^C
+mysql> ^C
+mysql> select balance, customer_name, account_number from account a1 natural join depositor  where (select count(distinct(a2.balance)) from account a2 where a1.balance <= a2.balance) = 2;
++---------+---------------+----------------+
+| balance | customer_name | account_number |
++---------+---------------+----------------+
+|  750.00 | Jones         | A-217          |
++---------+---------------+----------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT customer_name, balance-amount as net_balance from ((SELECT customer_name, sum(amount) as amount from loan natural join borrower GROUP BY customer_name) p inner join (SELECT customer_name, SUM(balance) as balance from account natural join depositor GROUP BY customer_name) q using(customer_name));
++---------------+-------------+
+| customer_name | net_balance |
++---------------+-------------+
+| Hayes         |    -1100.00 |
+| Jones         |     -250.00 |
+| S20190010163  |    -2200.00 |
++---------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> Terminal close -- exit!
+Aborted

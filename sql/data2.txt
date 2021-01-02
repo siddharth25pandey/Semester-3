@@ -1,0 +1,13 @@
+1234,Sarala,2020-01-02,9444123456,Sales,HR,70000,F
+3452,Amogh,2019-01-01,9464123456,Sales,Sales manager,72000,M
+4312,Qasim,2019-04-01,9444123423,Sales,Sales representative,7000,M
+4112,Swathi,2019-04-23,\N,Sales,Typist,3300,F
+6693,Manoj,2019-03-01,9444125357,HR,Marketing,17000,M
+4345,Devi kumar,2020-01-01,9448563456,HR,HR,70000,F
+5744,Hari dev,2019-03-01,9464893456,Marketing,Receptionist,2000,M
+7899,William Jane,2019-04-12,\N,Marketing,Typist,4000,F
+3451,Dennis,2019-11-01,8244125357,Marketing,sales representative,7000,M
+2399,Govind,2019-03-1,8346123423,Accounts,Typist,4500,M
+4599,Dhanad,2019-04-2,8456123423,Accounts,Typist,4000,M
+2399,Khurana,2019-03-1,9448903423,Accounts,CA,14500,M
+4599,Suraj,2019-04-2,9426123423,Accounts,CA,46000,M

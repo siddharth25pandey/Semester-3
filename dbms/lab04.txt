@@ -1,0 +1,237 @@
+mysql> show databases;
++-----------------------------+
+| Database                    |
++-----------------------------+
+| information_schema          |
+| Siddharth_S20190010163_bank |
+| dbms                        |
+| lab01                       |
+| lab4                        |
+| mysql                       |
+| performance_schema          |
+| sys                         |
++-----------------------------+
+8 rows in set (0.00 sec)
+
+mysql> use lab4;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_lab4 |
++----------------+
+| branch         |
+| customer       |
++----------------+
+2 rows in set (0.00 sec)
+
+mysql> load data local infile 'customer.csv' into table customer columns terminated by ',';
+Query OK, 0 rows affected, 15 warnings (0.00 sec)
+Records: 8  Deleted: 0  Skipped: 8  Warnings: 15
+
+mysql> select * from customer;
++---------------+-----------------+----------------+
+| customer_name | customer_street | customer_city  |
++---------------+-----------------+----------------+
+| 019-28-3746   | Smith           | 72 North St.   |
+| 182-73-6091   | Turner          | 123 Putnam St. |
+| 192-83-7465   | Johnson         | 12 Alma St.    |
+| 321-12-3123   | Jones           | 100 Main St.   |
+| 336-66-9999   | Lindsay         | 175 Park Ave   |
+| 677-89-9011   | Hayes           | 3 Main St.     |
+| customerid    | customername    | customerstreet |
++---------------+-----------------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> desc customer;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| customer_name   | varchar(20) | NO   | PRI | NULL    |       |
+| customer_street | varchar(30) | YES  |     | NULL    |       |
+| customer_city   | varchar(30) | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> load data local infile 'customer.csv' into table customer columns terminated by ',';
+Query OK, 0 rows affected, 15 warnings (0.00 sec)
+Records: 8  Deleted: 0  Skipped: 8  Warnings: 15
+
+mysql> load data local infile 'branch_relation.csv' into table branch columns terminated by ',';
+Query OK, 9 rows affected, 1 warning (0.04 sec)
+Records: 9  Deleted: 0  Skipped: 0  Warnings: 1
+
+mysql> select * from branch;
++-------------+-------------+------------+
+| branch_name | branch_city | assets     |
++-------------+-------------+------------+
+| branchname  | branch_city |       0.00 |
+| Brighton    | Brooklyn    | 7100000.00 |
+| Downtown    | Brooklyn    | 9000000.00 |
+| Mianus      | Horseneck   |  400000.00 |
+| North Town  | Rye         | 3700000.00 |
+| Perryridge  | Horseneck   | 1700000.00 |
+| Pownal      | Bennington  |  300000.00 |
+| Redwood     | Palo Alto   | 2100000.00 |
+| Round Hill  | Horseneck   | 8000000.00 |
++-------------+-------------+------------+
+9 rows in set (0.00 sec)
+
+mysql> Create table account (account_number char(15),branch_name char (15),balance
+    -> numeric(12,2),PRIMARY KEY(account_number),FOREIGN KEY (branch_name)
+    -> REFERENCES branch(branch_name));
+Query OK, 0 rows affected (0.61 sec)
+
+mysql> load data local infile 'account_relation.csv' into table account columns terminated by ',';
+Query OK, 7 rows affected, 2 warnings (0.03 sec)
+Records: 8  Deleted: 0  Skipped: 1  Warnings: 2
+
+mysql> select * from account;
++----------------+-------------+---------+
+| account_number | branch_name | balance |
++----------------+-------------+---------+
+| A-101          | Downtown    |  500.00 |
+| A-102          | Perryridge  |  400.00 |
+| A-201          | Brighton    |  900.00 |
+| A-215          | Mianus      |  700.00 |
+| A-217          | Brighton    |  750.00 |
+| A-222          | Redwood     |  700.00 |
+| A-305          | Round Hill  |  350.00 |
++----------------+-------------+---------+
+7 rows in set (0.00 sec)
+
+mysql> Create table depositor(customer_name char(20),account_number char(10),PRIMARY
+    -> KEY(customer_name,account_number),FOREIGN KEY (customer_name)
+    -> REFERENCES customer(customer_name),FOREIGN KEY (account_number)
+    -> REFERENCES account(account_number));
+Query OK, 0 rows affected (1.01 sec)
+
+mysql> load data local infile 'depostior_relation.csv' into table depositor columns terminated by ',';
+ERROR 2 (HY000): File 'depostior_relation.csv' not found (Errcode: 2 - No such file or directory)
+mysql> load data local infile 'depositor_relation.csv' into table depositor columns terminated by ',';
+Query OK, 0 rows affected, 9 warnings (0.00 sec)
+Records: 8  Deleted: 0  Skipped: 8  Warnings: 9
+
+mysql> select * from depositor;
+Empty set (0.00 sec)
+
+mysql> show tables;
++----------------+
+| Tables_in_lab4 |
++----------------+
+| account        |
+| branch         |
+| customer       |
+| depositor      |
++----------------+
+4 rows in set (0.00 sec)
+
+mysql> desc depositor;
++----------------+----------+------+-----+---------+-------+
+| Field          | Type     | Null | Key | Default | Extra |
++----------------+----------+------+-----+---------+-------+
+| customer_name  | char(20) | NO   | PRI | NULL    |       |
+| account_number | char(10) | NO   | PRI | NULL    |       |
++----------------+----------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> load data local infile 'depositor_relation.csv' into table depositor columns terminated by ',';
+Query OK, 0 rows affected, 9 warnings (0.00 sec)
+Records: 8  Deleted: 0  Skipped: 8  Warnings: 9
+
+mysql> select * from depositor;
+Empty set (0.00 sec)
+
+mysql> insert into depositor values("Hayes","A-102");
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`lab4`.`depositor`, CONSTRAINT `depositor_ibfk_1` FOREIGN KEY (`customer_name`) REFERENCES `customer` (`customer_name`))
+mysql> show tables;
++----------------+
+| Tables_in_lab4 |
++----------------+
+| account        |
+| branch         |
+| customer       |
+| depositor      |
++----------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from customer;
++---------------+-----------------+----------------+
+| customer_name | customer_street | customer_city  |
++---------------+-----------------+----------------+
+| 019-28-3746   | Smith           | 72 North St.   |
+| 182-73-6091   | Turner          | 123 Putnam St. |
+| 192-83-7465   | Johnson         | 12 Alma St.    |
+| 321-12-3123   | Jones           | 100 Main St.   |
+| 336-66-9999   | Lindsay         | 175 Park Ave   |
+| 677-89-9011   | Hayes           | 3 Main St.     |
+| customerid    | customername    | customerstreet |
++---------------+-----------------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> Create table loan(loan_number varchar(6),branch_name char(15),amount int,PRIMARY
+    -> KEY(loan_number),FOREIGN KEY (branch_name) REFERENCES
+    -> branch(branch_name));
+Query OK, 0 rows affected (0.47 sec)
+
+mysql> show tables;
++----------------+
+| Tables_in_lab4 |
++----------------+
+| account        |
+| branch         |
+| customer       |
+| depositor      |
+| loan           |
++----------------+
+5 rows in set (0.00 sec)
+
+mysql> load data local infile 'loan_relation.csv' into table loan columns terminated by ',';
+Query OK, 7 rows affected, 3 warnings (0.80 sec)
+Records: 8  Deleted: 0  Skipped: 1  Warnings: 3
+
+mysql> select * from loan;
++-------------+-------------+--------+
+| loan_number | branch_name | amount |
++-------------+-------------+--------+
+| L-11        | Round Hill  |    900 |
+| L-14        | Downtown    |   1500 |
+| L-15        | Perryridge  |   1500 |
+| L-16        | Perryridge  |   1300 |
+| L-17        | Downtown    |   1000 |
+| L-23        | Redwood     |   2000 |
+| L-93        | Mianus      |    500 |
++-------------+-------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> Create table loan(loan_number varchar(6),branch_name char(15),amount int,PRIMARY
+    -> KEY(loan_number),FOREIGN KEY (branch_name) REFERENCES
+    -> branch(branch_name));
+ERROR 1050 (42S01): Table 'loan' already exists
+mysql> Create table loan(loan_number varchar(6),branch_name char(15),amount int,PRIMARY
+    -> KEY(loan_number),FOREIGN KEY (branch_name) REFERENCES
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+mysql> Create table loan(loan_number varchar(6),branch_name char(15),amount int,PRIMARY
+    -> KEY(loan_number),FOREIGN KEY (branch_name) REFERENCES
+    -> branch(branch_name));
+ERROR 1050 (42S01): Table 'loan' already exists
+
+mysql> Create table borrower(customer_name char(20),loan_number varchar(6),PRIMARY
+    -> KEY(customer_name,loan_number),FOREIGN KEY (customer_name) REFERENCES
+    -> customer(customer_name),FOREIGN KEY (loan_number) REFERENCES
+    -> loan(loan_number));
+Query OK, 0 rows affected (0.77 sec)
+
+mysql> load data local infile 'borrower_relation.csv' into table borrower columns terminated by ',';
+Query OK, 0 rows affected, 10 warnings (0.01 sec)
+Records: 9  Deleted: 0  Skipped: 9  Warnings: 10
+
+mysql> select * from borrower;
+Empty set (0.00 sec)
+
+mysql> insert into borrower values('Adams','L-16');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`lab4`.`borrower`, CONSTRAINT `borrower_ibfk_1` FOREIGN KEY (`customer_name`) REFERENCES `customer` (`customer_name`))
+mysql> notee;

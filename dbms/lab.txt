@@ -1,0 +1,80 @@
+mysql> select count(emp_id) from employee group by place having count(emp_id)>1;
++---------------+
+| count(emp_id) |
++---------------+
+|             2 |
+|             2 |
+|             4 |
+|             4 |
+|             2 |
+|             4 |
+|             2 |
++---------------+
+7 rows in set (0.00 sec)
+
+mysql> select count(*),place from employee group by place order by count(*) desc;
++----------+------------+
+| count(*) | place      |
++----------+------------+
+|        4 | India      |
+|        4 | California |
+|        4 | Florida    |
+|        2 | Alaska     |
+|        2 | Newyork    |
+|        2 | Arizona    |
+|        2 | Georgia    |
++----------+------------+
+7 rows in set (0.00 sec)
+
+mysql> use dbms;
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_dbms |
++----------------+
+| BUSINESS       |
+| STUDENTS       |
+| account        |
+| borrower       |
+| branch         |
+| customer       |
+| depositor      |
+| employee       |
+| loan           |
++----------------+
+9 rows in set (0.00 sec)
+
+mysql> select count(*),place from employee group by place order by count(*) desc;
++----------+------------+
+| count(*) | place      |
++----------+------------+
+|        4 | India      |
+|        4 | California |
+|        4 | Florida    |
+|        2 | Alaska     |
+|        2 | Newyork    |
+|        2 | Arizona    |
+|        2 | Georgia    |
++----------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select emp_id from employee where income between 100000 and 500000 and not income = 120000;
++--------+
+| emp_id |
++--------+
+|   2505 |
+|   2507 |
+|   2508 |
+|   2512 |
+|   2515 |
+|   2517 |
+|   2518 |
+|   2522 |
++--------+
+8 rows in set (0.00 sec)
+
+mysql> select emp_id from employee where income between 100000 and 500000 and income not = 120000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= 120000' at line 1
+mysql> select count(emp_id) from emplyee group by place having count(emp_id)>1;
+ERROR 1146 (42S02): Table 'dbms.emplyee' doesn't exist
+mysql> notee;

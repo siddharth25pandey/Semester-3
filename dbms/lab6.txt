@@ -1,0 +1,481 @@
+mysql> create table branch(branch_name varchar(10),branch_city(varchar(10),assets int (10))
+    -> ^C
+mysql> create table branch(branch_name varchar(10),branch_city(varchar(10),assets int (10))
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(varchar(10),assets int (10))' at line 1
+mysql> create table branch(branch_name varchar(10),branch_city(varchar(10),assets int (10));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(varchar(10),assets int (10))' at line 1
+mysql> create table branch(branch_name varchar(10),branch_city varchar(10),assets int (10));
+Query OK, 0 rows affected (1.22 sec)
+
+mysql> insert into values branch("Brighton","Brooklyn",7100000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'values branch("Brighton","Brooklyn",7100000)' at line 1
+mysql> insert into table branch values("Brighton","Brooklyn",7100000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table branch values("Brighton","Brooklyn",7100000)' at line 1
+mysql> insert into branch values("Brighton","Brooklyn",7100000);
+Query OK, 1 row affected (1.26 sec)
+
+mysql> insert into branch values("Downtown","Brooklyn",9000000);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into branch values("Mianus","Horsenexk",400000);
+Query OK, 1 row affected (0.29 sec)
+
+mysql> insert into branch values("North Town","Rye",3700000);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into branch values("Perryridge","Horseneck",1700000);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into branch values("Pownal","Bennington",300000);
+Query OK, 1 row affected (0.60 sec)
+
+mysql> insert into branch values("Redwood","Palo Alto",2100000);
+Query OK, 1 row affected (0.71 sec)
+
+mysql> insert into branch values("Round Hill","Horseneck",8000000);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from branch
+    -> ;
++-------------+-------------+---------+
+| branch_name | branch_city | assets  |
++-------------+-------------+---------+
+| Brighton    | Brooklyn    | 7100000 |
+| Downtown    | Brooklyn    | 9000000 |
+| Mianus      | Horsenexk   |  400000 |
+| North Town  | Rye         | 3700000 |
+| Perryridge  | Horseneck   | 1700000 |
+| Pownal      | Bennington  |  300000 |
+| Redwood     | Palo Alto   | 2100000 |
+| Round Hill  | Horseneck   | 8000000 |
++-------------+-------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> drop branch_name from branch where branch_city ="Horsenexk";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'branch_name from branch where branch_city ="Horsenexk"' at line 1
+mysql> delete from branch where branch_city="Horsenexk";
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from branch;
++-------------+-------------+---------+
+| branch_name | branch_city | assets  |
++-------------+-------------+---------+
+| Brighton    | Brooklyn    | 7100000 |
+| Downtown    | Brooklyn    | 9000000 |
+| North Town  | Rye         | 3700000 |
+| Perryridge  | Horseneck   | 1700000 |
+| Pownal      | Bennington  |  300000 |
+| Redwood     | Palo Alto   | 2100000 |
+| Round Hill  | Horseneck   | 8000000 |
++-------------+-------------+---------+
+7 rows in set (0.00 sec)
+
+mysql> insert into branch values("Mianus","Horseneck",400000);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from branch;
++-------------+-------------+---------+
+| branch_name | branch_city | assets  |
++-------------+-------------+---------+
+| Brighton    | Brooklyn    | 7100000 |
+| Downtown    | Brooklyn    | 9000000 |
+| North Town  | Rye         | 3700000 |
+| Perryridge  | Horseneck   | 1700000 |
+| Pownal      | Bennington  |  300000 |
+| Redwood     | Palo Alto   | 2100000 |
+| Round Hill  | Horseneck   | 8000000 |
+| Mianus      | Horseneck   |  400000 |
++-------------+-------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> create table account (account_number varchar (10),branch_name varchar(10),balance int(5));
+Query OK, 0 rows affected (0.27 sec)
+
+mysql> insert into account values("A-101",""Downtown",500);
+    "> ;
+    "> ^C
+mysql> insert into account values("A-101",""Downtown",500);
+    "> insert into account values ("A-101",""Downtown",500);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Downtown",500);
+insert into account values ("A-101",""Downtown",500)' at line 1
+mysql> insert into account values("A-101",""Downtown",500);
+insert into account values ("A-101","Downtown",500);
+    "> ;
+    "> ^C
+mysql> insert into account values ("A-101", "Downtown",500);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from account;
++----------------+-------------+---------+
+| account_number | branch_name | balance |
++----------------+-------------+---------+
+| A-101          | Downtown    |     500 |
++----------------+-------------+---------+
+1 row in set (0.00 sec)
+
+mysql> insert into account values ("A-102", "Perryridge",400);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into account values ("A-201", "Brighton",900);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into account values ("A-215", "Mianus",700);
+Query OK, 1 row affected (0.28 sec)
+
+mysql> insert into account values ("A-217", "Brighton",750);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into account values ("A-222", "Redwoord",700);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into account values ("A-305", "Round Hill",350);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from account;
++----------------+-------------+---------+
+| account_number | branch_name | balance |
++----------------+-------------+---------+
+| A-101          | Downtown    |     500 |
+| A-102          | Perryridge  |     400 |
+| A-201          | Brighton    |     900 |
+| A-215          | Mianus      |     700 |
+| A-217          | Brighton    |     750 |
+| A-222          | Redwoord    |     700 |
+| A-305          | Round Hill  |     350 |
++----------------+-------------+---------+
+7 rows in set (0.00 sec)
+
+mysql> create table depositor (customer_name varchar(10),account_number varchar(10));
+Query OK, 0 rows affected (1.09 sec)
+
+mysql> insert into values depositor("Hayes","A-102");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'values depositor("Hayes","A-102")' at line 1
+mysql> insert into depositor values("Hayes","A-102");
+Query OK, 1 row affected (0.80 sec)
+
+mysql> insert into depositor values("Johnson","A-101");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into depositor values("Johnson","A-201");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into depositor values("Jones","A-217");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into depositor values("Lindsay","A-222");
+Query OK, 1 row affected (0.27 sec)
+
+mysql> insert into depositor values("Smith","A-215");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into depositor values("Turner","A-305");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from depositor;
++---------------+----------------+
+| customer_name | account_number |
++---------------+----------------+
+| Hayes         | A-102          |
+| Johnson       | A-101          |
+| Johnson       | A-201          |
+| Jones         | A-217          |
+| Lindsay       | A-222          |
+| Smith         | A-215          |
+| Turner        | A-305          |
++---------------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> create table loan(loan_number varchar(10),branch_name varchar (10),amount int(10));
+Query OK, 0 rows affected (1.02 sec)
+
+mysql> insert into loan values ("L-11","Round Hill",900);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into loan values ("L-14","Downtown",1500);
+Query OK, 1 row affected (0.99 sec)
+
+mysql> insert into loan values ("L-15","Perryridge",1500);
+Query OK, 1 row affected (0.27 sec)
+
+mysql> insert into loan values ("L-16","Perryridge",1300);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into loan values ("L-17","Downtown",1000);
+Query OK, 1 row affected (0.27 sec)
+
+mysql> insert into loan values ("L-23","Redwood",2000);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into loan values ("L-93","Mianus",500);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from loan;
++-------------+-------------+--------+
+| loan_number | branch_name | amount |
++-------------+-------------+--------+
+| L-11        | Round Hill  |    900 |
+| L-14        | Downtown    |   1500 |
+| L-15        | Perryridge  |   1500 |
+| L-16        | Perryridge  |   1300 |
+| L-17        | Downtown    |   1000 |
+| L-23        | Redwood     |   2000 |
+| L-93        | Mianus      |    500 |
++-------------+-------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> show tables;
++----------------+
+| Tables_in_lab6 |
++----------------+
+| account        |
+| branch         |
+| depositor      |
+| loan           |
++----------------+
+4 rows in set (0.00 sec)
+
+mysql> create table borrower (customer_name varchar(10),loan_number varchar(10));
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> insert into borrower values ("Admas","L-16");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into borrower values ("Curry","L-93");
+Query OK, 1 row affected (1.54 sec)
+
+mysql> insert into borrower values ("Hayes","L-15");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into borrower values ("Jackson","L-14");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into borrower values ("Jones","L-17");
+Query OK, 1 row affected (0.29 sec)
+
+mysql> insert into borrower values ("Smith","L-11");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into borrower values ("Smith","L-23");
+Query OK, 1 row affected (0.18 sec)
+
+mysql> insert into borrower values ("Williams","L-17");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from borrower;
++---------------+-------------+
+| customer_name | loan_number |
++---------------+-------------+
+| Admas         | L-16        |
+| Curry         | L-93        |
+| Hayes         | L-15        |
+| Jackson       | L-14        |
+| Jones         | L-17        |
+| Smith         | L-11        |
+| Smith         | L-23        |
+| Williams      | L-17        |
++---------------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> create table customer (customer_name varchar(10),customer_street varchar(10),customer_city varchar(10));
+Query OK, 0 rows affected (0.27 sec)
+
+mysql> insert into customer values("Admas","Spring","Pittsfield");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into customer values("Brooks","Sneator","Brooklyn");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into customer values("Curry","Norht","Rye");
+Query OK, 1 row affected (0.68 sec)
+
+mysql> insert into customer values("Glenn","Sand Hill","Woodside");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into customer values("Green","Walnut","Stamford");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into customer values("Hayes","Main","Harryson");
+Query OK, 1 row affected (0.60 sec)
+
+mysql> delete from customer where customer_name="Hayes";
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into customer values("Hayes","Main","Harryison");
+Query OK, 1 row affected (0.42 sec)
+
+mysql> delete from customer where customer_name="Hayes";
+Query OK, 1 row affected (0.25 sec)
+
+mysql> insert into customer values("Hayes","Main","Harrison");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from customer;
++---------------+-----------------+---------------+
+| customer_name | customer_street | customer_city |
++---------------+-----------------+---------------+
+| Admas         | Spring          | Pittsfield    |
+| Brooks        | Sneator         | Brooklyn      |
+| Curry         | Norht           | Rye           |
+| Glenn         | Sand Hill       | Woodside      |
+| Green         | Walnut          | Stamford      |
+| Hayes         | Main            | Harrison      |
++---------------+-----------------+---------------+
+6 rows in set (0.00 sec)
+
+mysql> insert into customer values("Johnson","Alma","Palo Alto");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from customer;
++---------------+-----------------+---------------+
+| customer_name | customer_street | customer_city |
++---------------+-----------------+---------------+
+| Admas         | Spring          | Pittsfield    |
+| Brooks        | Sneator         | Brooklyn      |
+| Curry         | Norht           | Rye           |
+| Glenn         | Sand Hill       | Woodside      |
+| Green         | Walnut          | Stamford      |
+| Hayes         | Main            | Harrison      |
+| Johnson       | Alma            | Palo Alto     |
++---------------+-----------------+---------------+
+7 rows in set (0.00 sec)
+
+mysql> insert into customer values("Jones","Main","Harrison");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into customer values("Linsay","Park","Pittsfield");
+Query OK, 1 row affected (0.41 sec)
+
+mysql> insert into customer values("Smith","Norht","Rye");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> delete from customer where customer_name="Smith";
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into customer values("Smith","North","Rye");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from customer;
++---------------+-----------------+---------------+
+| customer_name | customer_street | customer_city |
++---------------+-----------------+---------------+
+| Admas         | Spring          | Pittsfield    |
+| Brooks        | Sneator         | Brooklyn      |
+| Curry         | Norht           | Rye           |
+| Glenn         | Sand Hill       | Woodside      |
+| Green         | Walnut          | Stamford      |
+| Hayes         | Main            | Harrison      |
+| Johnson       | Alma            | Palo Alto     |
+| Jones         | Main            | Harrison      |
+| Linsay        | Park            | Pittsfield    |
+| Smith         | North           | Rye           |
++---------------+-----------------+---------------+
+10 rows in set (0.00 sec)
+
+mysql> insert into customer values("Turner","Putnam","Stamford");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into customer values("Williams","Nassau","Princeton");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from customer;
++---------------+-----------------+---------------+
+| customer_name | customer_street | customer_city |
++---------------+-----------------+---------------+
+| Admas         | Spring          | Pittsfield    |
+| Brooks        | Sneator         | Brooklyn      |
+| Curry         | Norht           | Rye           |
+| Glenn         | Sand Hill       | Woodside      |
+| Green         | Walnut          | Stamford      |
+| Hayes         | Main            | Harrison      |
+| Johnson       | Alma            | Palo Alto     |
+| Jones         | Main            | Harrison      |
+| Linsay        | Park            | Pittsfield    |
+| Smith         | North           | Rye           |
+| Turner        | Putnam          | Stamford      |
+| Williams      | Nassau          | Princeton     |
++---------------+-----------------+---------------+
+12 rows in set (0.00 sec)
+
+mysql> show tables;
++----------------+
+| Tables_in_lab6 |
++----------------+
+| account        |
+| borrower       |
+| branch         |
+| customer       |
+| depositor      |
+| loan           |
++----------------+
+6 rows in set (0.00 sec)
+
+mysql> select branch_name from account where account_number in (select account_number from
+    -> depositor natural join customer where customer_city="Pittsfield");
+Empty set (0.00 sec)
+
+mysql> select customer_name,balance from (customer natural join depositor natural join account)
+    -> where balance >= 700 ;
++---------------+---------+
+| customer_name | balance |
++---------------+---------+
+| Johnson       |     900 |
+| Jones         |     750 |
+| Smith         |     700 |
++---------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select sum(amount) from loan where loan_number in (select loan_number from loan natural
+    -> join borrower where customer_name="Smith");
++-------------+
+| sum(amount) |
++-------------+
+|        2900 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select branch_city,count from (select branch_city ,count(*) as count from branch group by
+    -> branch_city) as p where count>1;
++-------------+-------+
+| branch_city | count |
++-------------+-------+
+| Brooklyn    |     2 |
+| Horseneck   |     3 |
++-------------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select customer_name,branch_name,branch_city from account natural join depositor natural
+    -> join branch where branch_name in (select branch_name from branch where branch_city in
+    -> (select a from (select branch_city a,count(*) b from branch group by branch_city) as p where
+    -> b>1));
++---------------+-------------+-------------+
+| customer_name | branch_name | branch_city |
++---------------+-------------+-------------+
+| Johnson       | Brighton    | Brooklyn    |
+| Jones         | Brighton    | Brooklyn    |
+| Johnson       | Downtown    | Brooklyn    |
+| Hayes         | Perryridge  | Horseneck   |
+| Turner        | Round Hill  | Horseneck   |
+| Smith         | Mianus      | Horseneck   |
++---------------+-------------+-------------+
+6 rows in set (0.01 sec)
+
+mysql> select distinct customer_city,p.s as total_loan from customer natural left join
+    -> (select customer_city,sum(amount) as s from branch natural join loan natural join borrower
+    -> natural join customer group by customer_city) as p;
++---------------+------------+
+| customer_city | total_loan |
++---------------+------------+
+| Pittsfield    |       1300 |
+| Brooklyn      |       NULL |
+| Rye           |       3400 |
+| Woodside      |       NULL |
+| Stamford      |       NULL |
+| Harrison      |       2500 |
+| Palo Alto     |       NULL |
+| Princeton     |       1000 |
++---------------+------------+
+8 rows in set (0.00 sec)
+
+mysql> Terminal close -- exit!
+Aborted
